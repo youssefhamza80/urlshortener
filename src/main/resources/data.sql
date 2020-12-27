@@ -1,0 +1,2 @@
+INSERT INTO USER(USER_ID, USER_NAME, FULL_NAME, EMAIL, CREATION_DATE) VALUES (1, 'admin', 'Administrator', 'admin@gmail.com', CURRENT_TIMESTAMP);
+INSERT INTO USER(USER_ID, USER_NAME, FULL_NAME, EMAIL, CREATION_DATE) VALUES (2, 'youssefhamza', 'Youssef Hamza', 'yousif.kamal@gmail.com', CURRENT_TIMESTAMP);
