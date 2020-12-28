@@ -1,13 +1,13 @@
 package com.youssef.testo.service.dto;
 
 public class Result {
-	String result;
+	String status;
 	String errorDetails;
-	public String getResult() {
-		return result;
+	public String getStatus() {
+		return status;
 	}
-	public void setResult(String result) {
-		this.result = result;
+	public void setStatus(String result) {
+		this.status = result;
 	}
 	public String getErrorDetails() {
 		return errorDetails;
@@ -20,12 +20,10 @@ public class Result {
 	
 	public Result() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public Result(String result, String errorDetails) {
 		super();
-		this.result = result;
+		this.status = result;
 		this.errorDetails = errorDetails;
 	}
-	
 }

@@ -1,5 +1,6 @@
 package com.youssef.testo.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,11 +17,11 @@ public class ShortenUrlController {
 
 	public ShortenUrlController(ShortenUrlService shortenUrlService) {
 		super();
-		this.shortenUrlService = shortenUrlService;
+		this.shortenUrlService = shortenUrlService;	
 	}
-	
+
 	@PostMapping
-	public ShortenUrlResult getShortendUrl(@RequestBody String url) {
+	public ResponseEntity<ShortenUrlResult> getShortendUrl(@RequestBody String url) {
 		return shortenUrlService.shortenUrl(url, null);
-	}	
+	}
 }

@@ -3,13 +3,13 @@ package com.youssef.testo.service.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
 //@JsonInclude(value = Include.NON_NULL)
+@SuppressWarnings("unused")
 public class ShortenUrlResult extends Result {
 	private String url;
 	private String shortUrl;
+
+	private String userSpecificShortUrl;
 
 	private int urlShortenCnt;
 	private int urlAccessCnt;
@@ -21,8 +21,8 @@ public class ShortenUrlResult extends Result {
 	}
 
 	public void addUserStatistics(UserStatistics userStatistics) {
-		if (userStatsList==null) {
-			userStatsList = new ArrayList<>();			
+		if (userStatsList == null) {
+			userStatsList = new ArrayList<>();
 		}
 		userStatsList.add(userStatistics);
 	}
@@ -37,7 +37,6 @@ public class ShortenUrlResult extends Result {
 		this.shortUrl = shortUrl;
 		this.urlShortenCnt = urlShortenCnt;
 		this.urlAccessCnt = urlAccessCnt;
-		//this.userStatistics = userStatistics;
 	}
 
 	public int getUrlShortenCnt() {
@@ -70,5 +69,13 @@ public class ShortenUrlResult extends Result {
 
 	public void setShortUrl(String shortUrl) {
 		this.shortUrl = shortUrl;
+	}
+
+	public String getUserSpecificShortUrl() {
+		return userSpecificShortUrl;
+	}
+
+	public void setUserSpecificShortUrl(String userSpecificShortUrl) {
+		this.userSpecificShortUrl = userSpecificShortUrl;
 	}
 }

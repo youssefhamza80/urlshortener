@@ -7,6 +7,6 @@ import com.youssef.testo.entity.UrlOperation;
 
 @Repository
 public interface UrlOperationRepository extends CrudRepository<UrlOperation, Long> {
-	int countByUrlIdAndOperation(long urlId, String Operation);
-	int countByUrlIdAndOperationAndUserId(long urlId, String Operation, long userId);
+	int countByUrlIdAndOperation(long urlId, String operation);
+	int countByUrlIdAndOperationAndUserId(long urlId, String operation, long userId);
 }
