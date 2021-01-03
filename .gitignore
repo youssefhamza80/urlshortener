@@ -2,8 +2,8 @@
 .sonarlint/
 Comments.txt
 log.txt
-*/.classpath
-*/.project
+.classpath
+.project
 bin/
 tmp/
 *.tmp
