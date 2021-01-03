@@ -62,11 +62,10 @@ public class ShortenUrlService {
 
 			UserStatistics userStatistics = null;
 			if (userName != null) {
-
 				User user = userService.getUserByName(userName);
 
 				if (user == null) {
-					throw new IllegalArgumentException("Invalid user: "+userName);
+					throw new IllegalArgumentException("Invalid user: " + userName);
 				}
 				userId = user.getId();
 
@@ -89,10 +88,10 @@ public class ShortenUrlService {
 			result.setUrl(longUrl);
 
 			if (userName != null) {
-				result.setShortUrl(shortUrlConfig.getUserSpecificBaseRedirectUrl().replace("USERNAME", userName)
-						+ urlEncoder.encode(url.getId()));
+				result.setUserSpecificShortUrl(String.format(shortUrlConfig.getUserSpecificRedirectUrl(), userName,
+						urlEncoder.encode(url.getId())));
 			}
-			result.setShortUrl(shortUrlConfig.getBaseRedirectUrl() + urlEncoder.encode(url.getId()));
+			result.setShortUrl(String.format(shortUrlConfig.getRedirectUrl(), urlEncoder.encode(url.getId())));
 			result.setUrlShortenCnt(urlOperationRepository.countByUrlIdAndOperation(url.getId(),
 					shortUrlConfig.getUrlOperationShortenUrl()));
 			result.setUrlAccessCnt(urlOperationRepository.countByUrlIdAndOperation(url.getId(),
@@ -100,7 +99,7 @@ public class ShortenUrlService {
 			if (userStatistics != null)
 				result.addUserStatistics(userStatistics);
 
-			return new ResponseEntity<>(result, HttpStatus.OK);
+			return new ResponseEntity<>(result, HttpStatus.CREATED);
 		}
 
 		catch (Exception ex) {
