@@ -25,13 +25,13 @@ public class User {
 		urls = new ArrayList<>();
 	}
 
-	@Column(name = "USER_ID")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	long id;
-
 	@Id
 	@Column(name = "USER_NAME")
 	String userName;
+
+	@Column(name = "USER_ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	long id;
 
 	@Column(name = "FULL_NAME")
 	String fullName;

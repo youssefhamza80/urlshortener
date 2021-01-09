@@ -20,8 +20,6 @@ public class ShortenUrlService {
 
 	private final Base62Encoder urlEncoder;
 
-	private final UserService userService;
-
 	private final UrlValidation urlValidator;
 
 	private final UrlRepository urlDataRepository;
@@ -31,11 +29,9 @@ public class ShortenUrlService {
 	private final ShortUrlConfig shortUrlConfig;
 
 	public ShortenUrlService(UrlRepository urlDataRepository, UrlOperationRepository urlOperationRepository,
-			ShortUrlConfig shortUrlConfig, UrlValidation urlValidator, UserService userService,
-			Base62Encoder urlEncoder) {
+			ShortUrlConfig shortUrlConfig, UrlValidation urlValidator, Base62Encoder urlEncoder) {
 		super();
 		this.urlEncoder = urlEncoder;
-		this.userService = userService;
 		this.urlValidator = urlValidator;
 		this.urlDataRepository = urlDataRepository;
 		this.urlOperationRepository = urlOperationRepository;
@@ -53,7 +49,7 @@ public class ShortenUrlService {
 				url = new Url(longUrl);
 				urlDataRepository.save(url);
 			}
-
+			
 			url.setShortUrl(String.format(shortUrlConfig.getBaseRedirectUrl(), urlEncoder.encode(url.getUrlId())));
 
 			urlOperationRepository.save(new UrlOperation(url.getUrlId(), userName, Instant.now(),

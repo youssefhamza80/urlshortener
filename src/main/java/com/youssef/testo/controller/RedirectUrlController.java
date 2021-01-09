@@ -8,6 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.youssef.testo.service.RedirectUrlService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
+@Api(value = "Redirection Controller APIs", tags = { "Redirection Controller" })
 @RestController
 @RequestMapping("/r")
 public class RedirectUrlController {
@@ -19,6 +25,9 @@ public class RedirectUrlController {
 		this.rediectUrlService = rediectUrlService;
 	}
 
+	@ApiOperation(value = "Redirect short URL")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK"),
+			@ApiResponse(code = 404, message = "URL Not Found") })
 	@GetMapping("{encodedUrl}")
 	public ResponseEntity<String> getAndRedirect(@PathVariable String encodedUrl) {
 		return rediectUrlService.redirect(encodedUrl);

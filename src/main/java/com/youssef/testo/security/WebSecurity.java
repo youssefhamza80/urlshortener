@@ -1,4 +1,4 @@
-package com.youssef.testo.config;
+package com.youssef.testo.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;

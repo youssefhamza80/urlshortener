@@ -11,10 +11,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.youssef.testo.config.AuthenticationFacade;
+import com.youssef.testo.security.AuthenticationFacade;
 import com.youssef.testo.service.ShortenUrlService;
 import com.youssef.testo.service.StatisticsService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
+@Api(value = "User Controller APIs", tags = { "User Controller" })
 @RestController
 @RequestMapping("/user")
 @PreAuthorize("hasRole('ADMIN')||hasRole('USER')")
@@ -44,9 +50,14 @@ public class UserController {
 		return false;
 	}
 
+	@ApiOperation(value = "Shorten a URL by a specific user")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "CREATED"),
+			@ApiResponse(code = 400, message = "Bad Request"),
+			@ApiResponse(code = 401, message = "Unauthorized"),
+			@ApiResponse(code = 500, message = "Internal Server Error") })
 	@PostMapping("/{userName}/shortenurl")
 	@PreAuthorize("hasRole('USER')||hasRole('ADMIN')")
-	public ResponseEntity<Object> getShortendUrl(@PathVariable String userName, @RequestBody String url) {
+	public ResponseEntity<Object> shortenUrl(@PathVariable String userName, @RequestBody String url) {
 		boolean userAuthorized = isCurrentUserMatchesUrl(userName);
 		if (userAuthorized)
 			return shortenUrlService.shortenUrl(url, userName);
@@ -55,6 +66,11 @@ public class UserController {
 		}
 	}
 
+	@ApiOperation(value = "Get URL statistics for a specific user")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK"),
+			@ApiResponse(code = 400, message = "Bad Request"),
+			@ApiResponse(code = 401, message = "Unauthorized"),
+			@ApiResponse(code = 500, message = "Internal Server Error") })
 	@GetMapping("/{userName}/statistics")
 	@PreAuthorize("hasRole('USER')||hasRole('ADMIN')")
 	public ResponseEntity<Object> getStatistics(@PathVariable String userName) {
@@ -66,6 +82,12 @@ public class UserController {
 		}
 	}
 
+	@ApiOperation(value = "Get all URL statistics for users with ADMIN role only")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK"),
+			@ApiResponse(code = 400, message = "Bad Request"),
+			@ApiResponse(code = 401, message = "Unauthorized"),
+			@ApiResponse(code = 403, message = "Forbidden"),
+			@ApiResponse(code = 500, message = "Internal Server Error") })
 	@GetMapping("{userName}/allstatistics")
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Object> getAllStatistics(@PathVariable String userName) {

@@ -21,6 +21,9 @@ public class Url {
 		this.longUrl = longUrl;
 	}
 	
+	@Column(name = "LONG_URL")
+	String longUrl;
+
 	@Id
 	@Column(name = "URL_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,10 +32,7 @@ public class Url {
 	public long getUrlId() {
 		return urlId;
 	}
-	
-	@Column(name = "LONG_URL")
-	String longUrl;
-	
+
 	public String getLongUrl() {
 		return longUrl;
 	}

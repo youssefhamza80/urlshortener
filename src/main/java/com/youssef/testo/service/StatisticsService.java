@@ -39,24 +39,6 @@ public class StatisticsService {
 		this.userRepository = userRepository;
 	}
 
-	private void addUrlToUser(User user, Url url) {
-		int accessCnt = urlOperationRepository.countByUrlIdAndOperation(url.getUrlId(),
-				shortUrlConfig.getUrlOperationAccessUrl());
-		int shortenCnt = urlOperationRepository.countByUrlIdAndOperation(url.getUrlId(),
-				shortUrlConfig.getUrlOperationShortenUrl());
-		url.setShortenCnt(shortenCnt);
-		url.setAccessCnt(accessCnt);
-		url.setShortUrl(String.format(shortUrlConfig.getBaseRedirectUrl(), url.getUrlId()));
-	}
-
-	private void addUserUrls(User user) {
-
-		List<Url> userUrls = urlRepository.findByUserName(user.getUserName());
-
-		userUrls.forEach(url -> addUrlToUser(user, url));
-
-	}
-
 	public ResponseEntity<Object> getUserStatistics(String userName) {
 		try {
 			Optional<User> user = userRepository.findById(userName);
@@ -74,17 +56,31 @@ public class StatisticsService {
 	public ResponseEntity<Object> getAllStatistics() {
 
 		try {
-			// Get URL statistics for urls shortened by users
-			
 			Iterable<User> users = userRepository.findAll();
-
 			users.forEach(this::addUserUrls);
-
-			
-			
 			return new ResponseEntity<>(users, HttpStatus.OK);
 		} catch (Exception ex) {
 			return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	private void addUserUrls(User user) {
+
+		List<Url> userUrls = urlRepository.findByUserName(user.getUserName());
+
+		userUrls.forEach(url -> addUrlToUser(user, url));
+
+	}
+
+	private void addUrlToUser(User user, Url url) {
+		int accessCnt = urlOperationRepository.countByUrlIdAndOperation(url.getUrlId(),
+				shortUrlConfig.getUrlOperationAccessUrl());
+		int shortenCnt = urlOperationRepository.countByUrlIdAndOperation(url.getUrlId(),
+				shortUrlConfig.getUrlOperationShortenUrl());
+		url.setShortenCnt(shortenCnt);
+		url.setAccessCnt(accessCnt);
+		url.setShortUrl(String.format(shortUrlConfig.getBaseRedirectUrl(), base62Encoder.encode(url.getUrlId())));
+		user.addUrl(url);
+	}
+
 }
