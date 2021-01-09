@@ -16,7 +16,8 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.csrf().disable().authorizeRequests().anyRequest().authenticated().and().httpBasic();
+		httpSecurity.csrf().disable().authorizeRequests().anyRequest().
+		authenticated().and().httpBasic();
 	}
 
 	@Bean

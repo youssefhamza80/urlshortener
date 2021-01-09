@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.youssef.testo.config.ShortUrlConfig;
 import com.youssef.testo.service.ShortenUrlService;
 
 import io.swagger.annotations.Api;
@@ -15,7 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-@Api(value = "Shorten URL Controller APIs", tags = { "Shorten URL Controller" })
+@Api(value = "Shorten URL Public API", tags = { "Shorten URL Public API" })
 @RestController
 @RequestMapping("/shortenurl")
 @PreAuthorize("permitAll()")
