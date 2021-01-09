@@ -1,6 +1,5 @@
 package com.youssef.testo.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.youssef.testo.config.ShortUrlConfig;
 import com.youssef.testo.entity.Url;
-import com.youssef.testo.entity.UrlOperation;
 import com.youssef.testo.entity.User;
 import com.youssef.testo.repository.UrlOperationRepository;
 import com.youssef.testo.repository.UrlRepository;

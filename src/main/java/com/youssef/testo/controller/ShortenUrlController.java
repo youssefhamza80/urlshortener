@@ -23,12 +23,9 @@ public class ShortenUrlController {
 
 	private final ShortenUrlService shortenUrlService;
 
-	private final ShortUrlConfig shortUrlConfig;
-
-	public ShortenUrlController(ShortenUrlService shortenUrlService, ShortUrlConfig shortUrlConfig) {
+	public ShortenUrlController(ShortenUrlService shortenUrlService) {
 		super();
 		this.shortenUrlService = shortenUrlService;
-		this.shortUrlConfig = shortUrlConfig;
 	}
 
 	@ApiOperation(value = "Shorten URL")

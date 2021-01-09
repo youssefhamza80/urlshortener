@@ -26,6 +26,8 @@ import io.swagger.annotations.ApiResponses;
 @PreAuthorize("hasRole('ADMIN')||hasRole('USER')")
 public class UserController {
 
+	static final private String UNAUTHORIZED_USER_MSG = "You are not authorized to view this page";
+
 	private final AuthenticationFacade authenticationFacade;
 
 	private final ShortenUrlService shortenUrlService;
@@ -52,8 +54,7 @@ public class UserController {
 
 	@ApiOperation(value = "Shorten a URL by a specific user")
 	@ApiResponses(value = { @ApiResponse(code = 201, message = "CREATED"),
-			@ApiResponse(code = 400, message = "Bad Request"),
-			@ApiResponse(code = 401, message = "Unauthorized"),
+			@ApiResponse(code = 400, message = "Bad Request"), @ApiResponse(code = 401, message = "Unauthorized"),
 			@ApiResponse(code = 500, message = "Internal Server Error") })
 	@PostMapping("/{userName}/shortenurl")
 	@PreAuthorize("hasRole('USER')||hasRole('ADMIN')")
@@ -62,13 +63,12 @@ public class UserController {
 		if (userAuthorized)
 			return shortenUrlService.shortenUrl(url, userName);
 		else {
-			return new ResponseEntity<>("You are not authorized to view this page", HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(UNAUTHORIZED_USER_MSG, HttpStatus.UNAUTHORIZED);
 		}
 	}
 
 	@ApiOperation(value = "Get URL statistics for a specific user")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK"),
-			@ApiResponse(code = 400, message = "Bad Request"),
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 400, message = "Bad Request"),
 			@ApiResponse(code = 401, message = "Unauthorized"),
 			@ApiResponse(code = 500, message = "Internal Server Error") })
 	@GetMapping("/{userName}/statistics")
@@ -78,15 +78,13 @@ public class UserController {
 		if (userAuthorized) {
 			return statisticsService.getUserStatistics(userName);
 		} else {
-			return new ResponseEntity<>("You are not authorized to view this page", HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(UNAUTHORIZED_USER_MSG, HttpStatus.UNAUTHORIZED);
 		}
 	}
 
 	@ApiOperation(value = "Get all URL statistics for users with ADMIN role only")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK"),
-			@ApiResponse(code = 400, message = "Bad Request"),
-			@ApiResponse(code = 401, message = "Unauthorized"),
-			@ApiResponse(code = 403, message = "Forbidden"),
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 400, message = "Bad Request"),
+			@ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
 			@ApiResponse(code = 500, message = "Internal Server Error") })
 	@GetMapping("{userName}/allstatistics")
 	@PreAuthorize("hasRole('ADMIN')")
@@ -95,7 +93,7 @@ public class UserController {
 		if (userAuthorized) {
 			return statisticsService.getAllStatistics();
 		} else {
-			return new ResponseEntity<>("You are not authorized to view this page", HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(UNAUTHORIZED_USER_MSG, HttpStatus.UNAUTHORIZED);
 		}
 	}
 }
