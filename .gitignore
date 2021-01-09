@@ -16,6 +16,7 @@ local.properties
 .recommenders
 */target/*
 .target/*
+data/*
 */.metadata/*
 
 # External tool builders

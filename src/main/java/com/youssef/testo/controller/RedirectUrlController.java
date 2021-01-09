@@ -21,6 +21,6 @@ public class RedirectUrlController {
 
 	@GetMapping("{encodedUrl}")
 	public ResponseEntity<String> getAndRedirect(@PathVariable String encodedUrl) {
-		return rediectUrlService.redirect(encodedUrl, null);
+		return rediectUrlService.redirect(encodedUrl);
 	}
 }

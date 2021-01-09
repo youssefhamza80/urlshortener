@@ -1,0 +1,47 @@
+{
+  "groups": [
+    {
+      "name": "shorturl",
+      "type": "com.youssef.testo.config.ShortUrlConfig",
+      "sourceType": "com.youssef.testo.config.ShortUrlConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "shorturl.base-redirect-url",
+      "type": "java.lang.String",
+      "sourceType": "com.youssef.testo.config.ShortUrlConfig"
+    },
+    {
+      "name": "shorturl.error-result",
+      "type": "java.lang.String",
+      "sourceType": "com.youssef.testo.config.ShortUrlConfig"
+    },
+    {
+      "name": "shorturl.success-result",
+      "type": "java.lang.String",
+      "sourceType": "com.youssef.testo.config.ShortUrlConfig"
+    },
+    {
+      "name": "shorturl.url-operation-access-url",
+      "type": "java.lang.String",
+      "sourceType": "com.youssef.testo.config.ShortUrlConfig"
+    },
+    {
+      "name": "shorturl.url-operation-shorten-url",
+      "type": "java.lang.String",
+      "sourceType": "com.youssef.testo.config.ShortUrlConfig"
+    },
+    {
+      "name": "shorturl.url-schemes",
+      "type": "java.lang.String[]",
+      "sourceType": "com.youssef.testo.config.ShortUrlConfig"
+    },
+    {
+      "name": "shorturl.user-specific-base-redirect-url",
+      "type": "java.lang.String",
+      "sourceType": "com.youssef.testo.config.ShortUrlConfig"
+    }
+  ],
+  "hints": []
+}

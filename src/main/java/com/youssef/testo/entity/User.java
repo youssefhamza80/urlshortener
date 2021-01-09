@@ -1,6 +1,8 @@
 package com.youssef.testo.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,10 +10,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
 @Table(name = "USER")
+@JsonInclude(Include.NON_NULL)
 public class User {
+
+	public User() {
+		urls = new ArrayList<>();
+	}
 
 	@Column(name = "USER_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +38,7 @@ public class User {
 
 	@Column(name = "CREATION_DATE")
 	LocalDateTime creationDate;
-	
+
 	@Column(name = "EMAIL")
 	String email;
 
@@ -68,5 +80,20 @@ public class User {
 
 	public void setCreationDate(LocalDateTime creationDate) {
 		this.creationDate = creationDate;
+	}
+
+	@Transient
+	List<Url> urls;
+
+	public void addUrl(Url url) {
+		urls.add(url);
+	}
+
+	public List<Url> getUrls() {
+		return urls;
+	}
+
+	public void setUrls(List<Url> urls) {
+		this.urls = urls;
 	}
 }

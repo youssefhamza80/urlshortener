@@ -29,7 +29,7 @@ public class UrlValidation {
 			throw new IllegalArgumentException("URL is invalid");
 		}
 		
-		if (url.startsWith(shortUrlConfig.getRedirectUrl())) {
+		if (url.startsWith(shortUrlConfig.getBaseRedirectUrl())) {
 			throw new IllegalArgumentException("URL is already shortened by this service");
 		}
 	}

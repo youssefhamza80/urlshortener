@@ -1,6 +1,6 @@
 package com.youssef.testo.entity;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,16 +17,16 @@ public class UrlOperation {
 	@Column(name = "URL_OPERATION_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	long id;
-	
+
 	@Column(name = "URL_ID")
 	long urlId;
-	
-	@Column(name = "USER_ID")
-	long userId;
-	
+
+	@Column(name = "USER_NAME")
+	String userName;
+
 	@Column(name = "OPERATION_DATE")
-	LocalDateTime operationDate;
-	
+	Instant operationDate;
+
 	public UrlOperation() {
 		super();
 	}
@@ -34,10 +34,10 @@ public class UrlOperation {
 	@Column(name = "OPERATION")
 	String operation;
 
-	public UrlOperation(long urlId, long userId, LocalDateTime operationDate, String operation) {
-		super();		
+	public UrlOperation(long urlId, String userName, Instant operationDate, String operation) {
+		super();
 		this.urlId = urlId;
-		this.userId = userId;
+		this.userName = userName;
 		this.operationDate = operationDate;
 		this.operation = operation;
 	}
@@ -50,19 +50,23 @@ public class UrlOperation {
 		this.urlId = urlId;
 	}
 
-	public long getUserId() {
-		return userId;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUserId(long userId) {
-		this.userId = userId;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public LocalDateTime getOperationDate() {
+	public void setOperation(String operation) {
+		this.operation = operation;
+	}
+
+	public Instant getOperationDate() {
 		return operationDate;
 	}
 
-	public void setOperationDate(LocalDateTime operationDate) {
+	public void setOperationDate(Instant operationDate) {
 		this.operationDate = operationDate;
 	}
 

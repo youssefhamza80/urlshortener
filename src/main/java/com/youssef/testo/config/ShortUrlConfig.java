@@ -5,9 +5,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "shorturl")
 public class ShortUrlConfig {
 	
-	private String redirectUrl;
+	private String baseRedirectUrl;
 	
-	private String userSpecificRedirectUrl;
+	private String userSpecificBaseRedirectUrl;
 	
 	private String successResult;
 	
@@ -39,12 +39,12 @@ public class ShortUrlConfig {
 		super();		
 	}
 
-	public String getRedirectUrl() {
-		return redirectUrl;
+	public String getBaseRedirectUrl() {
+		return baseRedirectUrl;
 	}
 
-	public void setRedirectUrl(String baseUrl) {
-		this.redirectUrl = baseUrl;
+	public void setBaseRedirectUrl(String baseUrl) {
+		this.baseRedirectUrl = baseUrl;
 	}
 
 	public String[] getUrlSchemes() {
@@ -55,12 +55,12 @@ public class ShortUrlConfig {
 		this.urlSchemes = urlSchemes;
 	}
 
-	public String getUserSpecificRedirectUrl() {
-		return userSpecificRedirectUrl;
+	public String getUserSpecificBaseRedirectUrl() {
+		return userSpecificBaseRedirectUrl;
 	}
 
-	public void setUserSpecificRedirectUrl(String baseRedirectUrlUserSpecific) {
-		this.userSpecificRedirectUrl = baseRedirectUrlUserSpecific;
+	public void setUserSpecificBaseRedirectUrl(String baseRedirectUrlUserSpecific) {
+		this.userSpecificBaseRedirectUrl = baseRedirectUrlUserSpecific;
 	}
 
 	public String getUrlOperationShortenUrl() {
