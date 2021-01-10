@@ -29,7 +29,7 @@ public class RedirectUrlController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK"),
 			@ApiResponse(code = 404, message = "URL Not Found") })
 	@GetMapping("{encodedUrl}")
-	public ResponseEntity<String> getAndRedirect(@PathVariable String encodedUrl) {
+	public ResponseEntity<Object> getAndRedirect(@PathVariable String encodedUrl) {
 		return rediectUrlService.redirect(encodedUrl);
 	}
 }

@@ -11,16 +11,16 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "URL")
 public class Url {
-	
+
 	public Url() {
 		super();
 	}
-	
+
 	public Url(String longUrl) {
 		super();
 		this.longUrl = longUrl;
 	}
-	
+
 	@Column(name = "LONG_URL")
 	String longUrl;
 
@@ -29,8 +29,21 @@ public class Url {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	long urlId;
 
+	@Transient
+	private String shortUrl;
+
+	@Transient
+	private long shortenCnt;
+
+	@Transient
+	private long accessCnt;
+
 	public long getUrlId() {
 		return urlId;
+	}
+
+	public void setUrlId(long urlId) {
+		this.urlId = urlId;
 	}
 
 	public String getLongUrl() {
@@ -40,10 +53,7 @@ public class Url {
 	public void setLongUrl(String longUrl) {
 		this.longUrl = longUrl;
 	}
-	
-	@Transient
-	private String shortUrl;
-	
+
 	public String getShortUrl() {
 		return shortUrl;
 	}
@@ -52,9 +62,6 @@ public class Url {
 		this.shortUrl = shortUrl;
 	}
 
-	@Transient
-	private long shortenCnt;
-	
 	public long getShortenCnt() {
 		return shortenCnt;
 	}
@@ -71,6 +78,17 @@ public class Url {
 		this.accessCnt = accessCnt;
 	}
 
-	@Transient
-	private long accessCnt;
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Url)) {
+			return false;
+		}
+
+		Url urlObj = (Url) obj;
+
+		return urlObj.urlId == this.urlId
+				&& (urlObj.longUrl != null && this.longUrl != null || (urlObj.longUrl == null && this.longUrl == null))
+				&& urlObj.longUrl == this.longUrl && urlObj.shortenCnt == this.shortenCnt
+				&& urlObj.accessCnt == this.accessCnt;
+	}
 }

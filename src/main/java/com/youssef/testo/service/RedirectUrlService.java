@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.youssef.testo.config.ShortUrlConfig;
+import com.youssef.testo.config.ShortUrlAppConfig;
 import com.youssef.testo.entity.Url;
 import com.youssef.testo.entity.UrlOperation;
 import com.youssef.testo.repository.UrlOperationRepository;
@@ -17,6 +17,8 @@ import com.youssef.testo.util.Base62Encoder;
 
 @Service
 public class RedirectUrlService {
+	
+	public static final String URL_NOT_FOUND = "URL not found";
 
 	private final Base62Encoder urlEncoder;
 
@@ -24,10 +26,10 @@ public class RedirectUrlService {
 
 	private final UrlOperationRepository urlOperationRepository;
 
-	private final ShortUrlConfig shortUrlConfig;
+	private final ShortUrlAppConfig shortUrlConfig;
 
 	public RedirectUrlService(UrlRepository urlDataRepository, UrlOperationRepository urlOperationRepository,
-			Base62Encoder urlEncoder, ShortUrlConfig shortUrlConfig) {
+			Base62Encoder urlEncoder, ShortUrlAppConfig shortUrlConfig) {
 		super();
 		this.urlEncoder = urlEncoder;
 		this.urlDataRepository = urlDataRepository;
@@ -35,7 +37,7 @@ public class RedirectUrlService {
 		this.shortUrlConfig = shortUrlConfig;
 	}
 
-	public ResponseEntity<String> redirect(String encodedUrl) {
+	public ResponseEntity<Object> redirect(String encodedUrl) {
 
 		try {
 			long id = urlEncoder.decode(encodedUrl);
@@ -46,7 +48,7 @@ public class RedirectUrlService {
 				urlOperationRepository
 						.save(new UrlOperation(id, null, Instant.now(), shortUrlConfig.getUrlOperationAccessUrl()));
 			} else {
-				throw new IllegalArgumentException("URL cannot be found");
+				throw new IllegalArgumentException(URL_NOT_FOUND);
 			}
 			return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(url.getLongUrl())).build();
 		} catch (Exception ex) {

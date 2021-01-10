@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.youssef.testo.config.ShortUrlConfig;
+import com.youssef.testo.config.ShortUrlAppConfig;
 import com.youssef.testo.entity.Url;
 import com.youssef.testo.entity.User;
 import com.youssef.testo.repository.UrlOperationRepository;
@@ -24,17 +24,28 @@ public class StatisticsService {
 
 	private final UrlOperationRepository urlOperationRepository;
 
-	private final ShortUrlConfig shortUrlConfig;
+	private final ShortUrlAppConfig appConfig;
 
-	private final Base62Encoder base62Encoder;
+	private final Base62Encoder urlEncoder;
 
-	public StatisticsService(UrlRepository urlRepository, ShortUrlConfig shortUrlConfig,
+	public StatisticsService(UrlRepository urlRepository, ShortUrlAppConfig appConfig,
 			UrlOperationRepository urlOperationRepository, UserRepository userRepository, Base62Encoder base62Encoder) {
 		this.urlRepository = urlRepository;
 		this.urlOperationRepository = urlOperationRepository;
-		this.shortUrlConfig = shortUrlConfig;
-		this.base62Encoder = base62Encoder;
+		this.appConfig = appConfig;
+		this.urlEncoder = base62Encoder;
 		this.userRepository = userRepository;
+	}
+
+	public ResponseEntity<Object> getAllStatistics() {
+
+		try {
+			Iterable<User> users = userRepository.findAll();
+			users.forEach(this::addUserUrls);
+			return new ResponseEntity<>(users, HttpStatus.OK);
+		} catch (Exception ex) {
+			return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	public ResponseEntity<Object> getUserStatistics(String userName) {
@@ -51,34 +62,21 @@ public class StatisticsService {
 		}
 	}
 
-	public ResponseEntity<Object> getAllStatistics() {
-
-		try {
-			Iterable<User> users = userRepository.findAll();
-			users.forEach(this::addUserUrls);
-			return new ResponseEntity<>(users, HttpStatus.OK);
-		} catch (Exception ex) {
-			return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-
 	private void addUserUrls(User user) {
-
 		List<Url> userUrls = urlRepository.findByUserName(user.getUserName());
+		
+		userUrls.forEach(this::populateUrlProperties);
 
-		userUrls.forEach(url -> addUrlToUser(user, url));
-
+		user.setUrls(userUrls);
 	}
 
-	private void addUrlToUser(User user, Url url) {
+	private void populateUrlProperties(Url url) {
 		int accessCnt = urlOperationRepository.countByUrlIdAndOperation(url.getUrlId(),
-				shortUrlConfig.getUrlOperationAccessUrl());
+				appConfig.getUrlOperationAccessUrl());
 		int shortenCnt = urlOperationRepository.countByUrlIdAndOperation(url.getUrlId(),
-				shortUrlConfig.getUrlOperationShortenUrl());
+				appConfig.getUrlOperationShortenUrl());
 		url.setShortenCnt(shortenCnt);
 		url.setAccessCnt(accessCnt);
-		url.setShortUrl(String.format(shortUrlConfig.getBaseRedirectUrl(), base62Encoder.encode(url.getUrlId())));
-		user.addUrl(url);
+		url.setShortUrl(String.format(appConfig.getBaseRedirectUrl(), urlEncoder.encode(url.getUrlId())));
 	}
-
 }

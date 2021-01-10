@@ -1,7 +1,6 @@
 package com.youssef.testo.entity;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.time.Instant;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -21,7 +20,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class User {
 
 	public User() {
-		urls = new ArrayList<>();
 	}
 
 	@Id
@@ -36,7 +34,7 @@ public class User {
 	String fullName;
 
 	@Column(name = "CREATION_DATE")
-	LocalDateTime creationDate;
+	Instant creationDateTime;
 
 	@Column(name = "EMAIL")
 	String email;
@@ -73,20 +71,16 @@ public class User {
 		this.fullName = fullName;
 	}
 
-	public LocalDateTime getCreationDate() {
-		return creationDate;
+	public Instant getCreationDateTime() {
+		return creationDateTime;
 	}
 
-	public void setCreationDate(LocalDateTime creationDate) {
-		this.creationDate = creationDate;
+	public void setCreationDateTime(Instant creationDateTime) {
+		this.creationDateTime = creationDateTime;
 	}
 
 	@Transient
 	List<Url> urls;
-
-	public void addUrl(Url url) {
-		urls.add(url);
-	}
 
 	public List<Url> getUrls() {
 		return urls;

@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
-import com.youssef.testo.config.ShortUrlConfig;
+import com.youssef.testo.config.ShortUrlAppConfig;
 
 @SpringBootApplication
-@EnableConfigurationProperties({ ShortUrlConfig.class})
+@EnableConfigurationProperties({ ShortUrlAppConfig.class})
 public class UrlShortenerApplication {
 
 	public static void main(String[] args) {

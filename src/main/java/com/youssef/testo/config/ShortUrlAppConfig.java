@@ -3,38 +3,18 @@ package com.youssef.testo.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "shorturl")
-public class ShortUrlConfig {
+public class ShortUrlAppConfig {
 	
 	private String publicUserName;
 	
 	private String baseRedirectUrl;
 	
-	private String successResult;
-	
 	private String[] urlSchemes;
 	
 	private String urlOperationShortenUrl;
 	private String urlOperationAccessUrl;
-
-	public String getSuccessResult() {
-		return successResult;
-	}
-
-	public void setSuccessResult(String successResult) {
-		this.successResult = successResult;
-	}
-
-	public String getErrorResult() {
-		return errorResult;
-	}
-
-	public void setErrorResult(String errorResult) {
-		this.errorResult = errorResult;
-	}
-
-	private String errorResult;
-	
-	public ShortUrlConfig() {
+		
+	public ShortUrlAppConfig() {
 		super();		
 	}
 
