@@ -8,11 +8,11 @@ import com.youssef.testo.config.ShortUrlAppConfig;
 @Service
 public class UrlValidation {
 
-	public final static String INVALID_URL = "URL is invalid";
+	public static final String INVALID_URL = "URL is invalid";
 
-	public final static String URL_ALREADY_SHORTENED = "URL is already shortened by this service";
+	public static final String URL_ALREADY_SHORTENED = "URL is already shortened by this service";
 
-	public final static String EMPTY_URL = "URL cannot be empty or null";
+	public static final String EMPTY_URL = "URL cannot be empty or null";
 
 	private final ShortUrlAppConfig shortUrlConfig;
 

@@ -1,7 +1,6 @@
 package com.youssef.testo.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +16,6 @@ import io.swagger.annotations.ApiResponses;
 @Api(value = "Shorten URL Public API", tags = { "Shorten URL Public API" })
 @RestController
 @RequestMapping("/shortenurl")
-@PreAuthorize("permitAll()")
 public class ShortenUrlController {
 
 	private final ShortenUrlService shortenUrlService;

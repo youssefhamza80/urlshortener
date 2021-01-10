@@ -26,7 +26,7 @@ import io.swagger.annotations.ApiResponses;
 @PreAuthorize("hasRole('ADMIN')||hasRole('USER')")
 public class UserController {
 
-	static final private String UNAUTHORIZED_USER_MSG = "You are not authorized to view this page";
+	private static final String UNAUTHORIZED_USER_MSG = "You are not authorized to view this page";
 
 	private final AuthenticationFacade authenticationFacade;
 

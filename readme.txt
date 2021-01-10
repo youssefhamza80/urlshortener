@@ -1,23 +1,22 @@
-Dear Catrin,
-Kindly, find attached source code of the URL shortening task.
-
-To build and run the solution:
-1. Extract the archive.
-2. On the root directory of the extracted archive, run the following commands on the cmd/shell terminal:
-	a. mvn clean install
-	b. mvn spring-boot:run
+1. To build and run the solution:
+     a. Extract the attached archive.
+     b. Change directory to the root directory of the extracted archive, and run the following commands on the cmd/shell terminal:
+            - mvn clean install
+            - mvn spring-boot:run
 	
 The application should start on port 8080.
 
-To check the functionality:
+2. To check the functionality:
 
-1. Shortening a URL: Using "Postman" for example, issue a POST request to http://localhost:8080/shortenurl with request body containing the URL to be shortened (raw text).
-Return body should contain the shortened URL. Please, copy this shortened URL and paste in the web browser address bar to check it redirects successfully to the original web site.
-2. You may run the same shortening request multiple time to check that statistics are updated successfully while maintaining the same short URL.
+1. To shorten a URL: Using "Postman" for example, issue a POST request to http://localhost:8080/shortenurl with request body containing the URL to be shortened (raw text).
+Return body should contain the shortened URL. 2. To redirect: Please, copy the shortened URL and paste in the web browser address bar to check it redirects successfully to the original web site.
+Same shortening request can run multiple time to make sure that statistics are updated successfully while maintaining the same short URL.
 
 
-For user specific portal testing:
-1. I have created only 2 users besides the admin user. Authentication is done with HTTP basic authentication. 
+For user specific links testing:
+
+Note: I have created only 2 users besides the admin user. Authentication is done with HTTP basic authentication. 
+
 Credentials are: 
 user1/user1 (USER role)
 user2/user2 (USER role)
@@ -40,7 +39,5 @@ http://localhost:8080/user/admin/statistics (for admin user)
 http://localhost:8080/user/admin/allstatistics
 
 
-Implementation/Unit testing is not 100% completed. I'm planning to discuss all details in the interview. Please, let me know if you need any further clarifications.
 
-
-
+All Rest controller APIs are listed here: http://localhost:8080/swagger-ui/index.html

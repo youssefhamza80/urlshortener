@@ -1,5 +1,7 @@
 package com.youssef.testo.entity;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -76,6 +78,12 @@ public class Url {
 
 	public void setAccessCnt(long accessCnt) {
 		this.accessCnt = accessCnt;
+	}
+	
+	@Override
+	public
+	int hashCode() {
+		return Objects.hash(longUrl, urlId);
 	}
 
 	@Override

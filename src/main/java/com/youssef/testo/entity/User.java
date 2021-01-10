@@ -18,10 +18,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Table(name = "USER")
 @JsonInclude(Include.NON_NULL)
 public class User {
-
-	public User() {
-	}
-
 	@Id
 	@Column(name = "USER_NAME")
 	String userName;
