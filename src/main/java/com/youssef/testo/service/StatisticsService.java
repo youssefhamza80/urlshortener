@@ -14,6 +14,8 @@ import com.youssef.testo.repository.UserRepository;
 @Service
 public class StatisticsService {
 	
+	private static final String USER_DOES_NOT_EXIST = "User %s does not exist";
+	
 	private final UrlService urlService;
 
 	private final UserRepository userRepository;
@@ -41,7 +43,7 @@ public class StatisticsService {
 				addUserUrls(user.get());
 				return new ResponseEntity<>(user, HttpStatus.OK);
 			} else {
-				return new ResponseEntity<>("User " + userName + " does not exist", HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<>(String.format(USER_DOES_NOT_EXIST, userName), HttpStatus.BAD_REQUEST);
 			}
 		} catch (Exception ex) {
 			return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

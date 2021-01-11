@@ -52,7 +52,7 @@ public class UrlService {
 				.save(new UrlOperation(url.getUrlId(), userName, Instant.now(), config.getUrlOperationShortenUrl()));
 	}
 
-	public void incrementRedirectCnt(Url url) {
+	public void incrementAccessCnt(Url url) {
 		urlOperationRepository
 				.save(new UrlOperation(url.getUrlId(), null, Instant.now(), config.getUrlOperationAccessUrl()));
 	}

@@ -25,7 +25,7 @@ public class RedirectUrlService {
 			Url url = urlService.decodeAndGet(encodedUrl);
 			
 			if (url != null) {
-				urlService.incrementRedirectCnt(url);
+				urlService.incrementAccessCnt(url);
 			} else {
 				throw new IllegalArgumentException(URL_NOT_FOUND);
 			}
