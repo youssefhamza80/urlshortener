@@ -31,6 +31,6 @@ public class ShortenUrlController {
 			@ApiResponse(code = 500, message = "Internal Server Error") })
 	@PostMapping
 	public ResponseEntity<Object> getShortendUrl(@RequestBody String url) {
-		return shortenUrlService.shortenUrl(url, "public");
+		return shortenUrlService.shortenUrl(url, null);
 	}
 }

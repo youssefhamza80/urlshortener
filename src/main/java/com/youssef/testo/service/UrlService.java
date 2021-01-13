@@ -37,7 +37,7 @@ public class UrlService {
 	}
 
 	public void populateUrlAttributes(Url url) {
-		url.setShortUrl(config.getBaseRedirectUrl() +"/"+ urlEncoder.encode(url.getUrlId()));
+		url.setShortUrl(config.getBaseRedirectUrl() + "/" + urlEncoder.encode(url.getUrlId()));
 
 		url.setAccessCnt(
 				urlOperationRepository.countByUrlIdAndOperation(url.getUrlId(), config.getUrlOperationAccessUrl()));
@@ -48,6 +48,9 @@ public class UrlService {
 	}
 
 	public void incrementShortenCnt(Url url, String userName) {
+		if (userName == null || userName.isEmpty()) {
+			userName = config.getPublicUserName();
+		}
 		urlOperationRepository
 				.save(new UrlOperation(url.getUrlId(), userName, Instant.now(), config.getUrlOperationShortenUrl()));
 	}
@@ -55,15 +58,6 @@ public class UrlService {
 	public void incrementAccessCnt(Url url) {
 		urlOperationRepository
 				.save(new UrlOperation(url.getUrlId(), null, Instant.now(), config.getUrlOperationAccessUrl()));
-	}
-
-	public Url getUrl(long id) {
-		Optional<Url> urlData = urlRepository.findById(id);
-		if (urlData.isPresent()) {
-			return urlData.get();
-		} else {
-			return null;
-		}
 	}
 
 	public List<Url> getUserUrls(String userName) {
@@ -84,5 +78,14 @@ public class UrlService {
 
 	public Url decodeAndGet(String encodedUrl) {
 		return getUrl(urlEncoder.decode(encodedUrl));
+	}
+
+	private Url getUrl(long id) {
+		Optional<Url> urlData = urlRepository.findById(id);
+		if (urlData.isPresent()) {
+			return urlData.get();
+		} else {
+			return null;
+		}
 	}
 }

@@ -17,7 +17,7 @@ public class ShortenUrlService {
 		super();
 		this.urlService = urlService;
 	}
-
+	
 	public ResponseEntity<Object> shortenUrl(String longUrl, String userName) {
 		try {
 			Optional<Url> shortendUrl = urlService.findByLongUrl(longUrl);
@@ -29,7 +29,7 @@ public class ShortenUrlService {
 				url = new Url(longUrl);
 				urlService.insertNewUrl(url);
 			}
-
+			
 			urlService.incrementShortenCnt(url, userName);
 			urlService.populateUrlAttributes(url);
 			return new ResponseEntity<>(url, HttpStatus.CREATED);
