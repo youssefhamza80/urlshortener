@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.youssef.testo</groupId>
-	<artifactId>urlDBService</artifactId>
+	<artifactId>UrlShortener</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>UrlShortener</name>
 	<description>URL Shortener</description>
