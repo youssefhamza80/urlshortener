@@ -37,7 +37,7 @@ public class UrlService {
 	}
 
 	public void populateUrlAttributes(Url url) {
-		url.setShortUrl(String.format(config.getBaseRedirectUrl(), urlEncoder.encode(url.getUrlId())));
+		url.setShortUrl(config.getBaseRedirectUrl() +"/"+ urlEncoder.encode(url.getUrlId()));
 
 		url.setAccessCnt(
 				urlOperationRepository.countByUrlIdAndOperation(url.getUrlId(), config.getUrlOperationAccessUrl()));

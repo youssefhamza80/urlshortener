@@ -29,7 +29,7 @@ import com.youssef.testo.util.UrlValidation;
 @RunWith(SpringRunner.class)
 class ShortenUrlServiceTest {
 
-	private static final String baseRedirectUrl = "http://localhost:8080/r/%s";
+	private static final String baseRedirectUrl = "http://localhost:8080/r";
 
 	private static final String urlOperationAccessUrl = "A";
 	private static final String urlOperationShortenUrl = "S";
@@ -108,6 +108,21 @@ class ShortenUrlServiceTest {
 		when(urlRepository.findByLongUrl(urlStr)).thenReturn(Optional.empty());
 
 		ResponseEntity<Object> expectedRespose = new ResponseEntity<>(UrlValidation.INVALID_URL,
+				HttpStatus.BAD_REQUEST);
+
+		ResponseEntity<Object> actualRespose = shortenUrlService.shortenUrl(urlStr, "user1");
+
+		assertAll(() -> assertNotNull(actualRespose), () -> assertNotNull(actualRespose.getBody()),
+				() -> assertEquals(expectedRespose.getBody(), actualRespose.getBody()));
+	}
+	
+	@Test
+	void testShortenAlreadyShortenedUrl_thenResultIsBadRequest() {
+		String urlStr = "http://localhost:8080/r/a";
+
+		when(urlRepository.findByLongUrl(urlStr)).thenReturn(Optional.empty());
+
+		ResponseEntity<Object> expectedRespose = new ResponseEntity<>(UrlValidation.URL_ALREADY_SHORTENED,
 				HttpStatus.BAD_REQUEST);
 
 		ResponseEntity<Object> actualRespose = shortenUrlService.shortenUrl(urlStr, "user1");

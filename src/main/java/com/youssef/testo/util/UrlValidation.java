@@ -31,12 +31,12 @@ public class UrlValidation {
 			throw new IllegalArgumentException(EMPTY_URL);
 		}
 
-		if (!validator.isValid(url)) {
-			throw new IllegalArgumentException(INVALID_URL);
-		}
-
 		if (url.startsWith(shortUrlConfig.getBaseRedirectUrl())) {
 			throw new IllegalArgumentException(URL_ALREADY_SHORTENED);
+		}
+		
+		if (!validator.isValid(url)) {
+			throw new IllegalArgumentException(INVALID_URL);
 		}
 	}
 }
